@@ -27,13 +27,13 @@ shiny <- na.omit(shiny)
 
 ### formatting and creating a dataframe with all the statistics we wanna know
 shiny$week_day <- weekdays(shiny$date)
-str(shiny)
 min <- NULL
 max <- NULL
 average <- NULL
 date.average <- NULL
 date.min <- NULL
 date.max <- NULL
+#### variable for ordering the weekdays
 days <- c("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday")
 
 for( i in 1:length(days)){
@@ -49,9 +49,10 @@ for( i in 1:length(days)){
 
 #### generating the data frames
 shiny_output <- data.frame(average,min,max,days, row.names = days)
-shiny_output <- melt(shiny_output, id.vars="days")
 
-####### creating labels for the plot
+
+####### creating labels for the plot and formatting the datafram for ggplot
+shiny_output <- melt(shiny_output, id.vars="days")
 dates <- data.frame(date.average,date.min, date.max)
 dates$date.min <- format(as.Date(dates$date.min), "%d/%m")
 dates$date.max <- format(as.Date(dates$date.max), "%d/%m")
